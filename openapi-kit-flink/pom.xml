@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.github.coolbeevip</groupId>
+    <artifactId>openapi-kit</artifactId>
+    <version>1.15.0</version>
+  </parent>
+  <artifactId>openapi-kit-flink</artifactId>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/spec/flink-openapi-1.15.yaml</inputSpec>
+              <invokerPackage>${project.groupId}.openapi.kit.flink.api</invokerPackage>
+              <modelPackage>${project.groupId}.openapi.kit.flink.model</modelPackage>
+              <apiPackage>${project.groupId}.openapi.kit.flink.api</apiPackage>
+              <configOptions>
+                <artifactDescription>Java library for managing Apache Flink via the REST API</artifactDescription>
+              </configOptions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

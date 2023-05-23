@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: YARN REST API
+  contact:
+    email: coolbeevip@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1/1.8
+paths:
+  /ws/v1/cluster/apps:
+    get:
+      tags:
+        - yarn
+      description: Returns a list of all application
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+        "307":
+          description: The request was temporary redirect.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: Redirect URL.
+components:
+  schemas:
+    App:
+      type: object
+    Apps:
+      type: object
+      properties:
+        apps:
+          type: object
+          properties:
+            app:
+              type: array
+              items:
+                $ref: '#/components/schemas/App'

@@ -1,0 +1,24 @@
+root = true
+
+[*.{adoc,bat,groovy,html,java,js,jsp,kt,kts,md,properties,py,rb,sh,sql,svg,txt,xml,xsd}]
+charset = utf-8
+
+[*.{groovy,java,kt,kts,xml,xsd}]
+indent_style = space
+indent_size = 2
+continuation_indent_size = 4
+end_of_line = lf
+ij_java_wrap_long_lines = true
+
+[*.{js,html}]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cmd]
+end_of_line = crlf
+
+[mvnw]
+end_of_line = lf
