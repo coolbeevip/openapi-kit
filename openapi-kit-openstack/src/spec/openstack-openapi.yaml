@@ -1,0 +1,406 @@
+openapi: 3.0.0
+info:
+  title: OpenStack REST API
+  contact:
+    email: coolbeevip@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: v2.0/v2.1/v2.95
+paths:
+  # Version
+  /:
+    get:
+      tags:
+        - openstack
+      description: List All Major Versions
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Versions'
+  /{api_version}:
+    get:
+      tags:
+        - openstack
+      description: Show Details of Specific API Version
+      parameters:
+        - name: api_version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionDetails'
+
+  # Servers
+  /servers:
+    get:
+      tags:
+        - openstack
+      description: List Servers
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Servers'
+  /servers/{server_id}:
+    get:
+      tags:
+        - openstack
+      description: Show Server Details
+      parameters:
+        - name: server_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerDetails'
+  /servers/{server_id}/os-security-groups:
+    get:
+      tags:
+        - openstack
+      description: List Security Groups for a Server
+      parameters:
+        - name: server_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityGroups'
+  /servers/{server_id}/diagnostics:
+    get:
+      tags:
+        - openstack
+      description: Show Server Diagnostics
+      parameters:
+        - name: server_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diagnostics'
+  /servers/{server_id}/ips:
+    get:
+      tags:
+        - openstack
+      description: List Server IP Addresses
+      parameters:
+        - name: server_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerIPs'
+  /servers/{server_id}/os-instance-actions:
+    get:
+      tags:
+        - openstack
+      description: List Actions For Server
+      parameters:
+        - name: server_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerActions'
+  /servers/{server_id}/os-volume_attachments:
+    get:
+      tags:
+        - openstack
+      description: List volume attachments for an instance
+      parameters:
+        - name: server_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerVolumeAttachments'
+
+  # Hypervisors
+  /os-hypervisors/detail:
+    get:
+      tags:
+        - openstack
+      description: List Hypervisors
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hypervisors'
+  /os-hypervisors/{hypervisor_id}:
+    get:
+      tags:
+        - openstack
+      description: Show Hypervisor Details
+      parameters:
+        - name: hypervisor_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HypervisorDetails'
+
+  # Compute services
+  /os-services:
+    get:
+      tags:
+        - openstack
+      description: List Compute Services
+      responses:
+        "200":
+          description: The request was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputeServices'
+components:
+  schemas:
+    Versions:
+      type: array
+      items:
+        $ref: '#/components/schemas/Version'
+    Version:
+      type: object
+      properties:
+        id:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        min_version:
+          type: string
+        status:
+          type: string
+        updated:
+          type: string
+        version:
+          type: string
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+    MediaType:
+      type: object
+      properties:
+        base:
+          type: string
+        type:
+          type: string
+    VersionDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        media-types:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaType'
+        min_version:
+          type: string
+        status:
+          type: string
+        updated:
+          type: string
+        version:
+          type: string
+    Servers:
+      type: object
+      properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+    Server:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        servers_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    ServerDetails:
+      type: object
+    SecurityGroups:
+      type: object
+      properties:
+        security_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityGroup'
+    SecurityGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tenant_id:
+          type: string
+        rules:
+          type: array
+          items:
+            type: object
+    Diagnostics:
+      type: object
+    ServerIPs:
+      type: object
+    ServerActions:
+      type: object
+      properties:
+        instanceActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceAction'
+    InstanceAction:
+      type: object
+      properties:
+        action:
+          type: string
+        instance_uuid:
+          type: string
+        message:
+          type: string
+        project_id:
+          type: string
+        request_id:
+          type: string
+        start_time:
+          type: string
+        user_id:
+          type: string
+    ServerVolumeAttachments:
+      type: object
+      properties:
+        volumeAttachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeAttachment'
+    VolumeAttachment:
+        type: object
+        properties:
+          device:
+            type: string
+          id:
+            type: string
+          serverId:
+            type: string
+          volumeId:
+            type: string
+    Hypervisors:
+      type: object
+      properties:
+        hypervisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hypervisor'
+        hypervisors_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    HypervisorDetails:
+      type: object
+      properties:
+        hypervisor:
+          $ref: '#/components/schemas/Hypervisor'
+
+    Hypervisor:
+      type: object
+    ComputeServices:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComputeService'
+    ComputeService:
+      type: object
+      properties:
+        id:
+          type: string
+        binary:
+          type: string
+        disabled_reason:
+          type: string
+        host:
+          type: string
+        state:
+          type: string
+        status:
+          type: string
+        updated_at:
+          type: string
+        forced_down:
+          type: boolean
+        zone:
+          type: string

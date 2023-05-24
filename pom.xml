@@ -97,6 +97,7 @@
   <modules>
     <module>openapi-kit-flink</module>
     <module>openapi-kit-yarn</module>
+    <module>openapi-kit-openstack</module>
   </modules>
 
   <dependencyManagement>
@@ -209,6 +210,8 @@
                 <generatorName>java</generatorName>
                 <generateApiTests>false</generateApiTests>
                 <generateModelTests>false</generateModelTests>
+                <generateModelDocumentation>false</generateModelDocumentation>
+                <generateApiDocumentation>false</generateApiDocumentation>
                 <library>${openapi.library}</library>
                 <configOptions>
                   <sourceFolder>src/gen/java/main</sourceFolder>

@@ -23,7 +23,7 @@
             <configuration>
               <inputSpec>${project.basedir}/src/spec/yarn-openapi-2.8.yaml</inputSpec>
               <invokerPackage>${project.groupId}.openapi.kit.yarn.api</invokerPackage>
-              <modelPackage>${project.groupId}.openapi.kit.yarn.model</modelPackage>
+              <modelPackage>${project.groupId}.openapi.kit.yarn.models</modelPackage>
               <apiPackage>${project.groupId}.openapi.kit.yarn.api</apiPackage>
               <configOptions>
                 <artifactDescription>Java library for managing Apache Hadoop YARN via the REST API</artifactDescription>
