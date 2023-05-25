@@ -2,6 +2,7 @@ package io.github.coolbeevip.openapi.kit.flink;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.coolbeevip.openapi.kit.flink.api.ApiException;
 import io.github.coolbeevip.openapi.kit.flink.api.FlinkApi;
@@ -112,6 +113,19 @@ class FlinkApiTest {
   }
 
   @Test
+  void jobsMetricsGetTest() throws ApiException {
+    api.jobsGet().getJobs().forEach(jobIdWithStatus -> {
+      try {
+        print(api.jobsMetricsGet(jobsMetricsGet, null, null));
+      } catch (JsonProcessingException e) {
+        throw new RuntimeException(e);
+      } catch (ApiException e) {
+        throw new RuntimeException(e);
+      }
+    });
+  }
+
+  @Test
   void jobsJobidMetricsGetTest() throws ApiException {
     api.jobsGet().getJobs().forEach(jobIdWithStatus -> {
       try {
@@ -170,7 +184,8 @@ class FlinkApiTest {
 
   @BeforeAll
   void beforeAll() throws ApiException {
-    api.getApiClient().setBasePath("http://10.19.36.213:8081");
+    api.getApiClient().setBasePath("http://oss-ndcp-211:27656/proxy/application_1684222589848_0011");
+    //api.getApiClient().setBasePath("http://10.19.36.213:8081");
     taskManagersMetricsGet =
         api.taskmanagersMetricsGet(null, null, null).stream().map(m -> m.getId()).collect(Collectors.joining(","));
     jobManagersMetricsGet = api.jobmanagerMetricsGet(null).stream().map(m -> m.getId()).collect(Collectors.joining(","
@@ -179,6 +194,7 @@ class FlinkApiTest {
   }
 
   void print(Object bean) throws JsonProcessingException {
+    mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
     System.out.println(mapper.writeValueAsString(bean));
   }
 }

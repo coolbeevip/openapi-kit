@@ -2099,6 +2099,14 @@ components:
           type: string
         value:
           type: object
+        min:
+          type: object
+        max:
+          type: object
+        avg:
+          type: object
+        sum:
+          type: object
     MetricsResponseBody:
       type: array
       items:
