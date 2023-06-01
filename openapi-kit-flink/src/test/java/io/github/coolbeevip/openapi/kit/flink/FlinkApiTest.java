@@ -1,6 +1,7 @@
 package io.github.coolbeevip.openapi.kit.flink;
 
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -195,6 +196,7 @@ class FlinkApiTest {
 
   void print(Object bean) throws JsonProcessingException {
     mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
+    mapper.enable(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN);
     System.out.println(mapper.writeValueAsString(bean));
   }
 }
